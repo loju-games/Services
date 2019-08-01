@@ -5,7 +5,7 @@
   "description": "Interfaces and implementations for integrating common services for save data, achievements, leaderboards etc.",
   "unity": "2018.3",
   "dependencies": {
-      "com.lojugames.common" : "1.0.0"
+      "com.lojugames.common" : "https://github.com/loju-games/Common.git"
   },
  "keywords": [
     "Loju",
