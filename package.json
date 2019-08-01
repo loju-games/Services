@@ -4,10 +4,8 @@
   "displayName": "Loju Services",
   "description": "Interfaces and implementations for integrating common services for save data, achievements, leaderboards etc.",
   "unity": "2018.3",
-  "dependencies": {
-      "com.lojugames.common" : "1.0.0"
-  },
- "keywords": [
+  "dependencies": {},
+  "keywords": [
     "Loju",
     "Services",
     "Data",
@@ -21,5 +19,5 @@
     "name": "Loju",
     "email": "hello@loju.co.uk",
     "url": "https://loju.co.uk"
-  } 
+  }
 }
