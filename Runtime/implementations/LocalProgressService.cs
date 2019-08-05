@@ -2,10 +2,11 @@
 
 namespace Loju.Services
 {
-    public class LocalProgressService : IProgressService
+
+    public class LocalProgressService : IDataStoreService
     {
 
-        public bool IsProgressServiceLoaded { get; private set; }
+        public bool IsDataStoreServiceLoaded { get; private set; }
 
         private ILocalKeystoreService _keystoreService;
 
@@ -21,17 +22,17 @@ namespace Loju.Services
 
         public void Connect(bool reconnect, System.Action<bool> OnComplete)
         {
-            IsProgressServiceLoaded = true;
+            IsDataStoreServiceLoaded = true;
             if (OnComplete != null) OnComplete(true);
         }
 
-        public void SaveProgress(string key, object data)
+        public void SaveData(string key, ISaveData data)
         {
             _keystoreService.SetString(key, JsonUtility.ToJson(data));
             _keystoreService.Save();
         }
 
-        public void LoadProgress<T>(string key, System.Action<T> onComplete) where T : IProgressData, new()
+        public void LoadData<T>(string key, System.Action<T> onComplete) where T : ISaveData, new()
         {
             if (_keystoreService.HasKey(key))
             {
