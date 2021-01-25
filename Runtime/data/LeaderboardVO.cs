@@ -14,14 +14,16 @@ namespace Loju.Services
 
         public LeaderboardEntryVO playerScore { get; private set; }
         public bool HasPlayerEntry { get; private set; }
+        public readonly int totalEntries;
         public readonly List<LeaderboardEntryVO> entries;
         public readonly LeaderboardType type;
 
-        public LeaderboardVO(LeaderboardType type)
+        public LeaderboardVO(LeaderboardType type, int totalEntries)
         {
             this.type = type;
             this.HasPlayerEntry = false;
             this.playerScore = null;
+            this.totalEntries = totalEntries;
             this.entries = new List<LeaderboardEntryVO>();
         }
 

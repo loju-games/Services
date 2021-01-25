@@ -5,10 +5,11 @@ namespace Loju.Services
     {
 
         bool IsDataStoreServiceLoaded { get; }
-        void Connect(bool reconnect, System.Action<bool> onComplete);
 
         void SaveData(string key, ISaveData data);
+        void SaveData(string key, string data);
         void LoadData<T>(string key, System.Action<T> onComplete) where T : ISaveData, new();
+        void LoadData(string key, System.Action<string> onComplete);
 
     }
 }

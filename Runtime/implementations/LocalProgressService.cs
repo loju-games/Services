@@ -3,10 +3,11 @@
 namespace Loju.Services
 {
 
-    public class LocalProgressService : IDataStoreService
+    public class LocalProgressService : IPlatformService, IDataStoreService
     {
 
-        public bool IsDataStoreServiceLoaded { get; private set; }
+        public bool IsLoaded { get; private set; }
+        public bool IsDataStoreServiceLoaded { get { return IsLoaded; } }
 
         private ILocalKeystoreService _keystoreService;
 
@@ -20,15 +21,21 @@ namespace Loju.Services
             _keystoreService = keystoreService;
         }
 
-        public void Connect(bool reconnect, System.Action<bool> OnComplete)
+        public void Load(bool reconnect, System.Action<bool> OnComplete)
         {
-            IsDataStoreServiceLoaded = true;
+            IsLoaded = true;
             if (OnComplete != null) OnComplete(true);
         }
 
         public void SaveData(string key, ISaveData data)
         {
             _keystoreService.SetString(key, JsonUtility.ToJson(data));
+            _keystoreService.Save();
+        }
+
+        public void SaveData(string key, string data)
+        {
+            _keystoreService.SetString(key, data);
             _keystoreService.Save();
         }
 
@@ -48,6 +55,25 @@ namespace Loju.Services
             else
             {
                 onComplete(new T());
+            }
+        }
+
+        public void LoadData(string key, System.Action<string> onComplete)
+        {
+            if (_keystoreService.HasKey(key))
+            {
+                try
+                {
+                    onComplete(_keystoreService.GetString(key));
+                }
+                catch
+                {
+                    onComplete(null);
+                }
+            }
+            else
+            {
+                onComplete(null);
             }
         }
 
