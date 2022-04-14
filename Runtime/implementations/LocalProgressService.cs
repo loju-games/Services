@@ -8,17 +8,20 @@ namespace Loju.Services
 
         public bool IsLoaded { get; private set; }
         public bool IsDataStoreServiceLoaded { get { return IsLoaded; } }
+        public string LocalUserId { get { return _localUserId; } }
+        public string LocalUserDisplayName { get { return _localUserDisplayName; } set { _localUserDisplayName = value; } }
 
+        private string _localUserId;
+        private string _localUserDisplayName;
         private ILocalKeystoreService _keystoreService;
 
-        public LocalProgressService()
-        {
-            _keystoreService = new PlayerPrefsKeystoreService();
-        }
+        public LocalProgressService() : this(new PlayerPrefsKeystoreService()) { }
 
         public LocalProgressService(ILocalKeystoreService keystoreService)
         {
             _keystoreService = keystoreService;
+            _localUserDisplayName = "";
+            _localUserId = LocalUserIdService.Get(_keystoreService);
         }
 
         public void Load(bool reconnect, System.Action<bool> OnComplete)

@@ -1,6 +1,6 @@
 {
   "name": "com.lojugames.services",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "displayName": "Loju Services",
   "description": "Interfaces and implementations for integrating common services for save data, achievements, leaderboards etc.",
   "unity": "2018.3",
